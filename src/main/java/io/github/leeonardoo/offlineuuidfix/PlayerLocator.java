@@ -1,15 +1,18 @@
 package io.github.leeonardoo.offlineuuidfix;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-import io.github.leeonardoo.offlineuuidfix.model.PlayerProfileModel;
-import org.apache.commons.io.IOUtils;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
+
+import javax.annotation.Nullable;
+
+import org.apache.commons.io.IOUtils;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+
+import io.github.leeonardoo.offlineuuidfix.model.PlayerProfileModel;
 
 public class PlayerLocator {
 
@@ -29,10 +32,11 @@ public class PlayerLocator {
             uuidLSB |= Long.parseLong(playerModel.getId().substring(24, 32), 16);
             UUID uuid = new UUID(uuidMSB, uuidLSB);
 
-            if (playerModel.getName().equalsIgnoreCase(playerName))
+            if (playerModel.getName().equalsIgnoreCase(playerName)) {
                 return uuid;
+            }
         } catch (IOException | JsonSyntaxException e) {
-            e.printStackTrace();
+            return null;
         }
 
         return null;
